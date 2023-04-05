@@ -1,0 +1,72 @@
+
+<div class="table-container">
+    <div class="title">
+        <h2>予定一覧</h2>
+        <%=link_to("/posts/new") do %>
+            <button type="button" class="btn btn-primary">新規作成</button>
+        <%end%>
+    </div>
+
+    <% flash.each do |message_type, message| %>
+        <div class="notice"><%= message %></div>
+    <% end %>
+
+    <table class="table table-hover">
+    <thead>
+        <tr>
+        <th scope="col">ID</th>
+        <th scope="col">タイトル</th>
+        <th scope="col">開始日</th>
+        <th scope="col">終了日</th>
+        <th scope="col">終日</th>
+        <th scope="col">更新日時</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @posts.each do|post| %>
+        <tr>
+            <th scope="row">
+                <%=post.id%>
+            </th>
+            <td>
+                <%=post.title%>
+            </td>
+            <td>
+                <%=l post.start, default: '-' %>
+            </td>
+            <td>
+                <%=l post.end, default: '-' %>
+            </td>
+            <td>
+                <% if post.allday%>
+                    <strong>○</strong>
+                <% end %>
+            </td>
+            <td>
+                <%=l post.updated_at, default: '-' %>
+            </td>
+            <td>
+                <%=link_to("詳細",post_path(post))%>
+            </td>
+            <td>
+                <%=link_to("編集",[:edit, post])%>
+            </td>
+            <td>
+                <%=button_to( "削除", post_path(post), method: :delete, class: "btn btn-primary",form: { data: { turbo_confirm: "削除しますか？" } })%>
+            </td>
+        </tr>
+        <% end %>
+    </tbody>
+    </table>
+</div>
+
+<footer class="footer-body">
+
+    <p><%= "合計予定数：#{@posts.count}件" %></p>
+
+    <p><%= "本日の日付：#{Date.today}" %></p>
+
+</footer>

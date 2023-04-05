@@ -1,0 +1,50 @@
+<div class="table-container">
+
+    <div class="title">
+        <h2>スケジュール詳細</h2>
+            <%=link_to("/posts") do %>
+                <button type="button" class="btn btn-primary">スケジュール一覧</button>
+            <%end%>
+    </div>
+
+    <% flash.each do |message_type, message| %>
+        <div class="notice"><%= message %></div>
+    <% end %>
+
+    <div class="table table-hover">
+    <table>
+        <tr>
+            <th>タイトル</th>
+            <td><%= @post.title %></td>
+        </tr>
+        <tr>
+            <th>開始日</th>
+            <td><%= @post.start %></td>
+        </tr>
+        <tr>
+            <th>終了日</th>
+            <td><%= @post.end %></td>
+        </tr>
+
+        <tr>
+            <th>終日</th>
+            <td>
+                <% if @post.allday%>
+                    <strong>○</strong>
+                <% end %>
+            </td>
+        </tr>
+
+        <tr>
+            <th>更新日</th>
+            <td><%= @post.updated_at %></td>
+        </tr>
+
+        <tr>
+            <th>メモ</th>
+            <td><%= @post.memo %></td>
+        </tr>
+    </table>
+        <%= link_to "編集", edit_post_path %>
+    </div>
+</div>
